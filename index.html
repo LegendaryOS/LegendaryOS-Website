@@ -1,1 +1,233 @@
-
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegendaryOS - Strona Główna</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #0a0020 0%, #2a00a0 100%);
+            color: #00aaff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .background-waves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><path d="M0 50 Q25 30 50 50 T100 50" stroke="%238000ff" stroke-opacity="0.3" fill="none"/></svg>') repeat;
+            animation: waveFlow 20s linear infinite;
+            z-index: -2;
+            opacity: 0.2;
+        }
+        @keyframes waveFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #ff00cc, #00aaff);
+            border-radius: 50%;
+            animation: orbit 15s infinite linear, glow 1.5s infinite alternate;
+            opacity: 0.7;
+        }
+        @keyframes orbit {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ff00cc; }
+            100% { box-shadow: 0 0 20px #00aaff; }
+        }
+        header {
+            background: rgba(42, 0, 160, 0.9);
+            padding: 20px;
+            border-bottom: 5px solid #8000ff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            animation: slideDown 1s ease-out;
+        }
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .logo {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 120px;
+            filter: drop-shadow(0 0 15px #00aaff);
+            animation: neonPulse 2s infinite alternate, rotateSlight 5s infinite ease-in-out;
+        }
+        @keyframes neonPulse {
+            0% { filter: drop-shadow(0 0 5px #00aaff); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 20px #00aaff); transform: scale(1.05); }
+        }
+        @keyframes rotateSlight {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+        nav {
+            margin-top: 70px;
+        }
+        nav a {
+            color: #ff00cc;
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 20px;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background: linear-gradient(90deg, #00aaff, #ff00cc);
+            transition: width 0.4s;
+        }
+        nav a:hover {
+            color: #00aaff;
+            transform: perspective(500px) translateZ(20px);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        .content {
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #8000ff;
+            font-size: 40px;
+            text-shadow: 0 0 15px #ff00cc;
+            animation: typing 2.5s steps(30) forwards, blink 0.7s step-end infinite, glitch 3s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 4px solid #00aaff;
+            width: 0;
+            margin-bottom: 40px;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(2px) skew(1deg); }
+            20%, 40%, 60%, 80% { transform: translateX(-2px) skew(-1deg); }
+        }
+        .card {
+            background: rgba(10, 0, 32, 0.8);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            border: 2px solid #8000ff;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 170, 255, 0.5);
+            animation: slideIn 1.2s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        .card:nth-child(2) { animation-delay: 0.3s; transform: translateX(50px); }
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px #00aaff;
+            transition: all 0.3s;
+        }
+        footer {
+            background: rgba(42, 0, 160, 0.9);
+            color: #00aaff;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 5px solid #8000ff;
+            backdrop-filter: blur(10px);
+            animation: slideUp 1s ease-out;
+            box-shadow: 0 0 20px #ff00cc;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            nav a { font-size: 16px; margin: 0 15px; }
+            h1 { font-size: 28px; }
+            .logo { width: 90px; }
+            .card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-waves"></div>
+    <div class="particles"></div>
+    <header>
+        <img src="LegendaryOS-nobackground.png" alt="LegendaryOS Logo" class="logo">
+        <nav>
+            <a href="index.html">Strona Główna</a>
+            <a href="download.html">Pobierz</a>
+            <a href="about-legendaryos.html">O LegendaryOS</a>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Witaj w LegendaryOS!</h1>
+        <div class="card">
+            <p>LegendaryOS to nowoczesny system operacyjny bazujący na Arch Linux, oferujący potężne narzędzia i elastyczność dla entuzjastów technologii.</p>
+        </div>
+        <div class="card">
+            <p>Gotowy, by odkryć moc LegendaryOS? Przejdź do strony pobierania lub dowiedz się więcej o systemie!</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 LegendaryOS. Wszystkie prawa zastrzeżone.</p>
+    </footer>
+    <script>
+        // Generate particles with varied properties
+        const particlesContainer = document.querySelector('.particles');
+        for (let i = 0; i < 60; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 5 + 3;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            particle.style.background = Math.random() > 0.5 ? '#ff00cc' : '#00aaff';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>

@@ -257,83 +257,109 @@ h1 {
     box-shadow: 0 0 60px #00aaff, 0 0 25px #ff00cc;
 }
 
-.download-menus {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    margin-top: 40px;
+.hardware-selector {
+    margin: 40px auto;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
 }
 
-.download-menu {
-    width: 100%;
-    background: linear-gradient(135deg, rgba(10, 0, 32, 0.9), rgba(20, 0, 64, 0.95));
-    border: 4px solid #8000ff;
-    border-radius: 10px;
-    box-shadow: 0 0 35px rgba(0, 170, 255, 0.7);
-    overflow: hidden;
-    transition: all 0.4s ease;
-    position: relative;
-}
-
-.download-menu:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 60px #00aaff, 0 0 25px #ff00cc;
-}
-
-.download-menu summary {
+.hardware-selector label {
     display: block;
+    font-size: 24px;
+    color: #ff00cc;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 204, 0.7);
+    animation: glow 1.5s infinite alternate;
+}
+
+.edition-select {
+    width: 100%;
+    padding: 15px;
     background: linear-gradient(45deg, #ff00cc, #00aaff);
     color: #0a0020;
-    padding: 20px;
-    font-size: 24px;
+    font-size: 20px;
+    border: 4px solid #8000ff;
+    border-radius: 10px;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%230a0020" d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 24px;
     cursor: pointer;
     text-shadow: 0 0 6px #0a0020;
-    position: relative;
     transition: all 0.4s ease;
-    list-style: none;
-    image-rendering: pixelated;
+    box-shadow: 0 0 30px #ff00cc, inset 0 0 10px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.download-menu summary::-webkit-details-marker {
-    display: none;
-}
-
-.download-menu summary::after {
-    content: '▼';
+.edition-select::before {
+    content: '';
     position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.3s ease;
-    color: #0a0020;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.edition-select:hover::before {
+    opacity: 1;
+    animation: sweep 3s infinite linear;
+}
+
+.edition-select:hover {
+    box-shadow: 0 0 50px #00aaff, inset 0 0 15px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05) perspective(600px) translateZ(10px);
+    background: linear-gradient(45deg, #00aaff, #ff00cc);
+}
+
+.edition-select option {
+    background: #0a0020;
+    color: #00aaff;
+    padding: 10px;
     font-size: 18px;
 }
 
-.download-menu[open] summary::after {
-    transform: translateY(-50%) rotate(180deg);
+.download-container {
+    background: linear-gradient(135deg, rgba(10, 0, 32, 0.9), rgba(20, 0, 64, 0.95));
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 800px;
+    border: 4px solid #8000ff;
+    border-radius: 10px;
+    box-shadow: 0 0 35px rgba(0, 170, 255, 0.7);
+    animation: fadeIn 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
 }
 
-.download-menu summary:hover {
-    background: linear-gradient(45deg, #00aaff, #ff00cc);
-    box-shadow: 0 0 20px #ff00cc inset;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.download-menu ul {
+.download-container h2 {
+    color: #8000ff;
+    font-size: 32px;
+    text-shadow: 0 0 15px #ff00cc;
+    margin-bottom: 20px;
+}
+
+.download-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    background: rgba(10, 0, 32, 0.9);
 }
 
-.download-menu li {
+.download-list li {
     border-top: 1px solid #8000ff;
 }
 
-.download-menu li:first-child {
+.download-list li:first-child {
     border-top: none;
 }
 
@@ -407,9 +433,12 @@ footer {
         padding: 25px;
         margin: 20px auto;
     }
-    .download-menu summary {
-        font-size: 20px;
-        padding: 15px;
+    .edition-select {
+        font-size: 18px;
+        padding: 12px;
+    }
+    .download-container h2 {
+        font-size: 28px;
     }
     .download-link {
         font-size: 18px;
@@ -436,9 +465,12 @@ footer {
     .content {
         padding: 50px 15px;
     }
-    .download-menu summary {
-        font-size: 18px;
-        padding: 12px;
+    .edition-select {
+        font-size: 16px;
+        padding: 10px;
+    }
+    .download-container h2 {
+        font-size: 24px;
     }
     .download-link {
         font-size: 16px;
@@ -446,15 +478,9 @@ footer {
     }
 }
 
-/* Remove the old download-buttons styles as they are no longer used */
-.download-buttons, .download-button, .download-button.stable, .download-button.testing, .download-button.unstable {
-    /* These can be removed or commented out */
-}
-
-@keyframes pulseButton {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0.8), 0 0 0 0 rgba(0, 170, 255, 0.7); }
-    70% { box-shadow: 0 0 0 35px rgba(255, 0, 204, 0), 0 0 0 25px rgba(0, 170, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0), 0 0 0 0 rgba(0, 170, 255, 0); }
+/* Remove old styles if not used */
+.download-menus, .download-menu {
+    /* These can be removed or commented out if not used */
 }
 
 @keyframes sweep {

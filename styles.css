@@ -257,82 +257,120 @@ h1 {
     box-shadow: 0 0 60px #00aaff, 0 0 25px #ff00cc;
 }
 
-.download-buttons {
+.download-menus {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
     margin-top: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.download-button {
-    display: inline-block;
-    padding: 20px 60px;
+.download-menu {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(10, 0, 32, 0.9), rgba(20, 0, 64, 0.95));
+    border: 4px solid #8000ff;
+    border-radius: 10px;
+    box-shadow: 0 0 35px rgba(0, 170, 255, 0.7);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.download-menu:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 60px #00aaff, 0 0 25px #ff00cc;
+}
+
+.download-menu summary {
+    display: block;
     background: linear-gradient(45deg, #ff00cc, #00aaff);
     color: #0a0020;
-    text-decoration: none;
-    border-radius: 10px;
+    padding: 20px;
     font-size: 24px;
-    position: relative;
-    overflow: hidden;
-    animation: pulseButton 2s infinite;
-    transition: all 0.4s ease;
-    box-shadow: 0 0 30px #ff00cc, 0 0 20px #00aaff;
+    cursor: pointer;
     text-shadow: 0 0 6px #0a0020;
-    border: 3px solid #8000ff;
+    position: relative;
+    transition: all 0.4s ease;
+    list-style: none;
     image-rendering: pixelated;
 }
 
-.download-button.stable {
-    background: linear-gradient(45deg, #00aaff, #00ff88);
+.download-menu summary::-webkit-details-marker {
+    display: none;
 }
 
-.download-button.testing {
-    background: linear-gradient(45deg, #ff00cc, #ffaa00);
+.download-menu summary::after {
+    content: '▼';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    color: #0a0020;
+    font-size: 18px;
 }
 
-.download-button.unstable {
-    background: linear-gradient(45deg, #ff0000, #ff00cc);
+.download-menu[open] summary::after {
+    transform: translateY(-50%) rotate(180deg);
 }
 
-.download-button::before {
+.download-menu summary:hover {
+    background: linear-gradient(45deg, #00aaff, #ff00cc);
+    box-shadow: 0 0 20px #ff00cc inset;
+}
+
+.download-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: rgba(10, 0, 32, 0.9);
+}
+
+.download-menu li {
+    border-top: 1px solid #8000ff;
+}
+
+.download-menu li:first-child {
+    border-top: none;
+}
+
+.download-link {
+    display: block;
+    padding: 15px 20px;
+    color: #ff00cc;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.4s ease;
+    position: relative;
+    text-shadow: 0 0 10px rgba(255, 0, 204, 0.7);
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 170, 255, 0.1) 100%);
+    overflow: hidden;
+}
+
+.download-link:hover {
+    color: #00aaff;
+    background: linear-gradient(90deg, #ff00cc 0%, #00aaff 100%);
+    text-shadow: 0 0 15px #0a0020;
+    transform: translateX(10px);
+}
+
+.download-link::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent);
-    transform: rotate(45deg);
-    animation: sweep 3s infinite linear;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
 }
 
-@keyframes pulseButton {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0.8), 0 0 0 0 rgba(0, 170, 255, 0.7); }
-    70% { box-shadow: 0 0 0 35px rgba(255, 0, 204, 0), 0 0 0 25px rgba(0, 170, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0), 0 0 0 0 rgba(0, 170, 255, 0); }
-}
-
-@keyframes sweep {
-    0% { transform: translateX(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) rotate(45deg); }
-}
-
-.download-button:hover {
-    transform: scale(1.15) translateY(-8px);
-    box-shadow: 0 0 70px #00aaff, 0 0 35px #ff00cc;
-}
-
-.download-button.stable:hover {
-    box-shadow: 0 0 70px #00ff88, 0 0 35px #00aaff;
-}
-
-.download-button.testing:hover {
-    box-shadow: 0 0 70px #ffaa00, 0 0 35px #ff00cc;
-}
-
-.download-button.unstable:hover {
-    box-shadow: 0 0 70px #ff0000, 0 0 35px #ff00cc;
+.download-link:hover::before {
+    left: 100%;
 }
 
 footer {
@@ -369,13 +407,13 @@ footer {
         padding: 25px;
         margin: 20px auto;
     }
-    .download-button {
+    .download-menu summary {
         font-size: 20px;
-        padding: 15px 40px;
+        padding: 15px;
     }
-    .download-buttons {
-        flex-direction: column;
-        gap: 15px;
+    .download-link {
+        font-size: 18px;
+        padding: 12px 15px;
     }
 }
 
@@ -398,8 +436,28 @@ footer {
     .content {
         padding: 50px 15px;
     }
-    .download-button {
+    .download-menu summary {
         font-size: 18px;
-        padding: 12px 30px;
+        padding: 12px;
     }
+    .download-link {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+}
+
+/* Remove the old download-buttons styles as they are no longer used */
+.download-buttons, .download-button, .download-button.stable, .download-button.testing, .download-button.unstable {
+    /* These can be removed or commented out */
+}
+
+@keyframes pulseButton {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0.8), 0 0 0 0 rgba(0, 170, 255, 0.7); }
+    70% { box-shadow: 0 0 0 35px rgba(255, 0, 204, 0), 0 0 0 25px rgba(0, 170, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 204, 0), 0 0 0 0 rgba(0, 170, 255, 0); }
+}
+
+@keyframes sweep {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
 }

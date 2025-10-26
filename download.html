@@ -24,25 +24,31 @@
         <div class="card">
             <p>Wybierz wersję LegendaryOS odpowiednią dla Ciebie. Dostępne są oficjalne edycje oraz warianty Atomic z różnymi środowiskami graficznymi.</p>
         </div>
-        <div class="download-menus">
-            <details class="download-menu">
-                <summary>LegendaryOS Official</summary>
-                <ul>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-KDE_26.10.2025.iso/download" class="download-link">KDE Edition</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-GNOME_26.10.2025.iso/download" class="download-link">GNOME Edition</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-Budgie_26.10.2025.iso/download" class="download-link">Budgie Desktop</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-LegendaryEnvironment_26.10.2025.iso/download" class="download-link">Legendary Environment</a></li>
-                </ul>
-            </details>
-            <details class="download-menu">
-                <summary>LegendaryOS Atomic</summary>
-                <ul>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-KDE_26.10.2025.iso/download" class="download-link">KDE Edition</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-GNOME_26.10.2025.iso/download" class="download-link">GNOME Edition</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-Budgie_26.10.2025.iso/download" class="download-link">Budgie Desktop</a></li>
-                    <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-LegendaryEnvironment_26.10.2025.iso/download" class="download-link">Legendary Environment</a></li>
-                </ul>
-            </details>
+        <div class="hardware-selector">
+            <label for="edition-select">Jaką edycję wybierasz?</label>
+            <select id="edition-select" class="edition-select">
+                <option value="">Wybierz edycję...</option>
+                <option value="official">LegendaryOS Official</option>
+                <option value="atomic">LegendaryOS Atomic</option>
+            </select>
+        </div>
+        <div id="official-downloads" class="download-container" style="display: none;">
+            <h2>LegendaryOS Official</h2>
+            <ul class="download-list">
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-KDE_26.10.2025.iso/download" class="download-link">KDE Edition</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-GNOME_26.10.2025.iso/download" class="download-link">GNOME Edition</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-Budgie_26.10.2025.iso/download" class="download-link">Budgie Desktop</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Official-LegendaryEnvironment_26.10.2025.iso/download" class="download-link">Legendary Environment</a></li>
+            </ul>
+        </div>
+        <div id="atomic-downloads" class="download-container" style="display: none;">
+            <h2>LegendaryOS Atomic</h2>
+            <ul class="download-list">
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-KDE_26.10.2025.iso/download" class="download-link">KDE Edition</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-GNOME_26.10.2025.iso/download" class="download-link">GNOME Edition</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-Budgie_26.10.2025.iso/download" class="download-link">Budgie Desktop</a></li>
+                <li><a href="https://sourceforge.net/projects/legendaryos/files/LegendaryOS-Atomic-LegendaryEnvironment_26.10.2025.iso/download" class="download-link">Legendary Environment</a></li>
+            </ul>
         </div>
     </div>
     <footer>
@@ -51,7 +57,7 @@
     <script>
         // Generate particles with enhanced animations
         const particlesContainer = document.querySelector('.particles');
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {  // Reduced from 100 to 50 for better FPS
             const particle = document.createElement('div');
             particle.classList.add('particle');
             const size = Math.random() * 5 + 2;
@@ -61,13 +67,29 @@
             particle.style.top = `${Math.random() * 100}vh`;
             particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
             particle.style.animationDelay = `${Math.random() * 3}s`;
-            particle.style.background = Math.random() > 0.5 
-                ? 'linear-gradient(45deg, #ff00cc, #00aaff)' 
+            particle.style.background = Math.random() > 0.5
+                ? 'linear-gradient(45deg, #ff00cc, #00aaff)'
                 : 'linear-gradient(45deg, #00aaff, #ff00cc)';
             particle.style.opacity = Math.random() * 0.4 + 0.3;
             particle.style.animationName = Math.random() > 0.5 ? 'orbit, glow, flicker' : 'orbitReverse, glow, flicker';
             particlesContainer.appendChild(particle);
         }
+
+        // Hardware selector functionality
+        const editionSelect = document.getElementById('edition-select');
+        const officialDownloads = document.getElementById('official-downloads');
+        const atomicDownloads = document.getElementById('atomic-downloads');
+
+        editionSelect.addEventListener('change', function() {
+            officialDownloads.style.display = 'none';
+            atomicDownloads.style.display = 'none';
+
+            if (this.value === 'official') {
+                officialDownloads.style.display = 'block';
+            } else if (this.value === 'atomic') {
+                atomicDownloads.style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
